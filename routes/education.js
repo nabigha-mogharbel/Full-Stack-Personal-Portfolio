@@ -1,11 +1,11 @@
 import express from "express";
 const router = express.Router();
-import controller from "../controllers/education.js";
+import educationController from "../controllers/educationController.js";
 
-router.get("/", controller.getAll);
-router.get("/:id", controller.get);
-router.post("/", controller.post);
-router.put("/:id", controller.put);
-router.delete("/:id", controller.delete);
+router.get("/", educationController.getAllEducation);
+router.get("/:id", educationController.getEducation);
+router.post("/", educationController.addEducation);
+// router.put("/:id", educationController.put);
+// router.delete("/:id", educationController.delete);
 
 export default router;

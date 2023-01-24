@@ -3,13 +3,24 @@ const { Schema, model } = mongoose;
 
 const educationSchema = new Schema(
   {
-    firstName: {
+    magor: {
       type: String,
       required: true,
     },
-    lastName: {
+    institute: {
       type: String,
       required: true,
+    },
+    degre: {
+      type: String,
+      required: true,
+    },
+    startDate: {
+      type: Date,
+      // required: true,
+    },
+    endDate: {
+      type: Date,
     },
   },
   {
