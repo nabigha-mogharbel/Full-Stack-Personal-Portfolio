@@ -9,14 +9,14 @@ import projectRoutes from "./routes/project.js"
 import router from "./routes/link.js";
 import skill from "./routes/skill.js"
 import educationRoutes from "./routes/education.js"
-
+import experienceRoutes from "./routes/experience.js";
 
 dotenv.config
 const PORT = process.env.PORT
 await connectDB();
-const app=new express();
-if (process.env.NODE_ENV === "development"){
-    app.use(morgan('dev'));
+const app = new express();
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 app.listen(3000 , console.log("hiiiiiiiiiiiiiiiiiiii"))
 app.use(express.json());
@@ -26,6 +26,7 @@ app.use("/dashboard", categoriesRoutes);
 app.use("/dashboard", projectRoutes)
 app.use("/dashbord/skill", skill)
 app.use("/dashboard/education", educationRoutes)
+app.use("/dashboard/experience", experienceRoutes)
 app.use(express.static('/uploads'));
 app.use("/uploads",express.urlencoded())
 app.get('/', (req, res) => {
