@@ -4,6 +4,8 @@ import morgan from "morgan";
 import connectDB from "./config/db.js"
 import admin from "./routes/admin.js"
 import about from "./routes/about.js"
+import categoriesRoutes from "./routes/category.js"
+import projectRoutes from "./routes/project.js"
 dotenv.config
 const PORT = process.env.PORT
 await connectDB();
@@ -14,6 +16,10 @@ if (process.env.NODE_ENV === "development"){
 app.use(express.json());
 app.use('/admin',admin);
 app.use('/about',about);
+app.use("/dashboard", categoriesRoutes);
+app.use("/dashboard", projectRoutes)
+app.use(express.static('/uploads'));
+app.use("/uploads",express.urlencoded())
 app.get('/', (req, res) => {
     res.send('API is running...')
 })
