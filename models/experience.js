@@ -12,7 +12,7 @@ const experienceSchema = new Schema ({
     },
     startDate: {
         type: Date,
-        required: true,
+        required: true
     },
     endDate: {
         type: Date,
@@ -21,6 +21,7 @@ const experienceSchema = new Schema ({
         type: String,
     }
 },{
+    
 collection: "experience",
 });
 
