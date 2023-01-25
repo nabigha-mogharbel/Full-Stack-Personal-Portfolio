@@ -7,6 +7,8 @@ import about from "./routes/about.js"
 import categoriesRoutes from "./routes/category.js"
 import projectRoutes from "./routes/project.js"
 import router from "./routes/link.js";
+import skill from "./routes/skill.js"
+
 
 dotenv.config
 const PORT = process.env.PORT
@@ -21,6 +23,7 @@ app.use('/admin',admin);
 app.use('/about',about);
 app.use("/dashboard", categoriesRoutes);
 app.use("/dashboard", projectRoutes)
+app.use("/dashbord/skill", skill)
 app.use(express.static('/uploads'));
 app.use("/uploads",express.urlencoded())
 app.get('/', (req, res) => {
