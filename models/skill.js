@@ -12,9 +12,9 @@ const skillSchema = new Schema ({
         type : Number,
         require : true
     }
-} , {
+} 
+, {
     collection : 'skills'
-})
-
+}) 
 const Skill = model ('Skill', skillSchema) ; 
 export default Skill
