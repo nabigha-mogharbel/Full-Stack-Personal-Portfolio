@@ -8,6 +8,7 @@ import categoriesRoutes from "./routes/category.js"
 import projectRoutes from "./routes/project.js"
 import router from "./routes/link.js";
 import skill from "./routes/skill.js"
+import educationRoutes from "./routes/education.js"
 
 
 dotenv.config
@@ -24,6 +25,7 @@ app.use('/about',about);
 app.use("/dashboard", categoriesRoutes);
 app.use("/dashboard", projectRoutes)
 app.use("/dashbord/skill", skill)
+app.use("/dashboard/education", educationRoutes)
 app.use(express.static('/uploads'));
 app.use("/uploads",express.urlencoded())
 app.get('/', (req, res) => {
