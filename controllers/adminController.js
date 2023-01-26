@@ -1,7 +1,9 @@
 import admin from "../models/admin.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import cookieParser from "cookie-parser";
+// import cookieParser from "cookie-parser"
+import dotenv from 'dotenv';
+dotenv.config()
 // Create Admin
 /**
  *
@@ -34,11 +36,8 @@ const createAdmin = async (req, res) => {
         console.log(err);
       }
     });
-    const theId = { _id: newAdmin._id }
-    const token = jwt.sign(theId, process.env.JWT_SECRET,{expiresIn:'24h'});
-    newAdmin.token = token;
-    res.cookie("token-auth", token, { maxAge: 900000, httpOnly: true });
-    res.status(201).json(newAdmin);
+    res.send(newAdmin);
+
   } catch (err) {
     res.status(400).send(err.message);
   }
@@ -56,6 +55,7 @@ const createAdmin = async (req, res) => {
 
 const getAdmin = async (req, res) => {
   const body = req.body;
+
   try {
     const Admin = await admin.find({});
     res.send(Admin);
@@ -90,4 +90,28 @@ const updateAdmin = async (req, res) => {
   }
 };
 
-export default { updateAdmin, createAdmin, getAdmin };
+const login =  (req, res) => {
+  const username = req.body.username
+  const password = req.body.password
+  admin.findOne({ username: username}).then(user =>  {
+      if(!user){ 
+          return res.status(400).send("Invalid username")
+      }
+      const exist =  bcrypt.compare(password, user.password)
+      if(!exist) return res.status(400).send("Invalid password")
+      const token = jwt.sign({user_id:user.id,username}, process.env.JWT_SECRET)
+    //  user.token= token;
+      res.cookie('auth-token', token,{maxAge: 24 * 60 * 60, httpOnly: true})
+
+      // res.cookie('username', username, {maxAge: 900000, httpOnly: true})
+      res.send(`Cookie sent`)
+
+      // res.render("login");
+
+  }).catch(err => {
+      console.log(err)
+      res.status(500).send("Internal server error")
+  })
+}
+
+export default { updateAdmin, createAdmin, getAdmin, login };
