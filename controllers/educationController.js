@@ -40,16 +40,12 @@ const putEducation = async (req, res) => {
   let data = req.body;
 
   try {
-    const updateSkill = await Model.findByIdAndUpdate(id, data, {
-      new: true,
-      runValidators: true,
-    });
-    if (updateSkill) {
-      res.status(200).send(updateSkill);
-    } else {
-      res.status(404).send(err.message);
-    }
-  } catch (error) {
+    console.log("data", data)
+    Model.updateOne({_id:id},{$set:data}, (err,response) => {
+      if(err){return next(err)}
+      res.status(200).send({success:true, response})
+  })
+  }catch (error) {
     res.status(400).send({ error: true, error });
   }
 };

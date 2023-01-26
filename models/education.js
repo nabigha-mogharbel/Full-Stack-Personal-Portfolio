@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const educationSchema = new Schema(
   {
-    magor: {
+    major: {
       type: String,
       required: true,
     },
@@ -11,7 +11,7 @@ const educationSchema = new Schema(
       type: String,
       required: true,
     },
-    degre: {
+    degree: {
       type: String,
       required: true,
     },

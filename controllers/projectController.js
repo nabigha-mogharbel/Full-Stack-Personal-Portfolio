@@ -10,7 +10,6 @@ export async function getProjects(req, res, next) {
     try {
       projectModel.find({}, (err, response) => {
         if (err) return next(err);
-        console.log("whaaat")
         res.status(200).send({ success: true, response });
       });
     } catch (error) {
@@ -33,7 +32,7 @@ export async function addProject(req, res, next){
     })
     projectData.save((err, response) => {
       if (err) return next(err);
-      res.status(200).send({ success: true, response });
+      res.status(201).send({ success: true, response });
     })}catch(err){res.send({error:true, err})}
 }
 /**
@@ -42,16 +41,11 @@ export async function addProject(req, res, next){
  * @returns {Object}
  */
 export async function updateProjectById(req,res,next){
-  let data=req.body;
-  let newData=data;
-  console.log("newdata", req)
-  if(data.id){
-    delete newData.id
-  }
+
   try{
-    projectModel.updateOne({_id:req.body.id}, {$set: req.body}, (err,response) => {
+    projectModel.updateOne({_id:req.params.id}, {$set: req.body}, (err,response) => {
       if(err){return next(err)}
-      res.status(200).send({success:true, response})
+      res.status(201).send({success:true, response})
   })
   }catch(err){
     res.status(400).send({error:true, err})
@@ -64,7 +58,7 @@ export async function updateProjectById(req,res,next){
  */
 export async function deleteProjectById(req,res,next){
   try{
-    projectModel.findByIdAndDelete({_id:req.body.id}, (err,response) => {
+    projectModel.findByIdAndDelete({_id:req.params.id}, (err,response) => {
       if(err)return next(err)
       res.status(200).send({success:true, response})
     })

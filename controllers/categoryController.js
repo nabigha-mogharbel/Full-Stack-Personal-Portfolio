@@ -48,7 +48,7 @@ export async function addCategory(req, res, next) {
     let newCategory = new categoryModel(body);
     newCategory.save((err, response) => {
       if (err) return next(err);
-      res.status(200).send({ success: true, response });
+      res.status(201).send({ success: true, response });
     });
   } catch (error) {
     console.log(error);
@@ -62,12 +62,12 @@ export async function addCategory(req, res, next) {
  * @returns {Object}
  */
 export async function editCategoryById(req, res, next) {
-    let body = {"name":req.body.name};
-    let id=req.body.id
+    let body = req.body;
+    //let id=req.body.id
     try {
-        categoryModel.updateOne({_id:id},{$set:body}, (err,response) => {
+        categoryModel.updateOne({_id:req.params.id},{$set:body}, (err,response) => {
             if(err){return next(err)}
-            res.status(200).send({success:true, response})
+            res.status(201).send({success:true, response})
         })
     } catch (error) {
       console.log(error);
@@ -82,9 +82,8 @@ export async function editCategoryById(req, res, next) {
  * @returns {Object}
  */
 export async function deleteCategoryById(req, res, next) {
-    let id=req.body.id
     try {
-        categoryModel.findByIdAndDelete({_id:id}, (err,response) => {
+        categoryModel.findByIdAndDelete({_id:req.params.id}, (err,response) => {
             if(err){return next(err)}
             res.status(200).send({success:true, response})
         })
