@@ -9,7 +9,7 @@ import auth from "../midleware/token-auth.js";
 
 
 router.use("/login", login);
-router.post("/", auth, adminController.createAdmin);
+router.post("/", adminController.createAdmin);
 router.get("/", auth, adminController.getAdmin);
 router.put("/:id", auth, adminController.updateAdmin);
 router.get("/logout", logOut);
