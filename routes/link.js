@@ -1,12 +1,13 @@
 import  express  from "express";
 import links from "../controllers/linkController.js";
 const router = express.Router()
+import auth from "../midleware/token-auth.js";
 
 
 
-router.get("/", links.getlink)
-router.post("/addlink",links.addlink)
-router.put("/update:id" , links.updatelink)
-router.delete("/delete:id",links.deletelink)
+router.get("/",auth, links.getlink)
+router.post("/addlink",auth,links.addlink)
+router.put("/update:id" ,auth, links.updatelink)
+router.delete("/delete:id",auth,links.deletelink)
 
 export default router
