@@ -10,6 +10,7 @@ import router from "./routes/link.js";
 import skill from "./routes/skill.js"
 import educationRoutes from "./routes/education.js"
 import experienceRoutes from "./routes/experience.js";
+import portfolioRoutes from "./routes/portfolio.js";
 
 import cookieParser from "cookie-parser";
 dotenv.config
@@ -28,6 +29,7 @@ app.use("/dashboard", projectRoutes)
 app.use("/dashbord/skill", skill)
 app.use("/dashboard/education", educationRoutes)
 app.use("/dashboard/experience", experienceRoutes)
+app.use("/dashboard/portfolio", portfolioRoutes)
 app.use(express.static('/uploads'));
 app.use("/uploads",express.urlencoded())
 app.get('/', (req, res) => {

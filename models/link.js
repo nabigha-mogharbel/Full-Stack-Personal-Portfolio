@@ -14,8 +14,8 @@ const linkSchema = new Schema ({
     icon : {
         type:String,
         require:true,
-    }
-})
+    },
+}, {collection: "social_link"})
 
 const Link = model("link",linkSchema)
 export default Link
