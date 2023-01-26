@@ -4,6 +4,7 @@ import morgan from "morgan";
 import connectDB from "./config/db.js"
 import admin from "./routes/admin.js"
 import about from "./routes/about.js"
+import cookieParser from "cookie-parser";
 dotenv.config
 const PORT = process.env.PORT
 await connectDB();
@@ -11,6 +12,7 @@ const app=new express();
 if (process.env.NODE_ENV === "development"){
     app.use(morgan('dev'));
 }
+app.use(cookieParser());
 app.use(express.json());
 app.use('/admin',admin);
 app.use('/about',about);
