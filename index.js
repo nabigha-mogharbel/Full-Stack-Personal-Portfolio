@@ -11,6 +11,7 @@ import skill from "./routes/skill.js"
 import educationRoutes from "./routes/education.js"
 import experienceRoutes from "./routes/experience.js";
 
+import cookieParser from "cookie-parser";
 dotenv.config
 const PORT = process.env.PORT
 await connectDB();
@@ -18,7 +19,7 @@ const app = new express();
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-app.listen(3000 , console.log("hiiiiiiiiiiiiiiiiiiii"))
+app.use(cookieParser());
 app.use(express.json());
 app.use('/admin',admin);
 app.use('/about',about);
