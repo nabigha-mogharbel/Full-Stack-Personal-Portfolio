@@ -1,9 +1,6 @@
 import express from "express";
-import cookieParser from "cookie-parser";
-
 const router = express.Router();
 import adminController from "../controllers/adminController.js";
-// import login from "../midleware/logIn.js";
 import logOut from "../midleware/logOut.js";
 import auth from "../midleware/token-auth.js";
 
