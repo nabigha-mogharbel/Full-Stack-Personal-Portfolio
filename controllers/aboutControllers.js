@@ -117,6 +117,26 @@ try {
  * @param {*} req
  * Delete a documnent from the database use the ID of the documnent
  */
+const deleteAboutWithImg = (req, res) => {
+  const id = req.params.id;
+  About.findByIdAndDelete(id)
+    .then((Deleted) => {
+      if (Deleted) {
+        fs.unlink(Deleted.personal_pic, (err) => {
+          if (err) {
+            return next(err);
+          }
+          res.status(200).send("Deleted Successfully");
+        });
+      } else {
+        res.status(404).send("Error: Couldn't find");
+      }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
+
 const deleteAbout = (req, res) => {
   const id = req.params.id;
   About.findByIdAndDelete(id)
@@ -131,4 +151,4 @@ const deleteAbout = (req, res) => {
       res.status(500).send(err);
     });
 };
-export default { createAbout, getAllAbout, getAbout, updateAbout, deleteAbout, updateByIdWithImageAbout };
+export default { createAbout, getAllAbout, getAbout, updateAbout, deleteAbout, updateByIdWithImageAbout,deleteAboutWithImg };
