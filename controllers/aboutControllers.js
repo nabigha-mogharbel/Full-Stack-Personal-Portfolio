@@ -9,7 +9,11 @@ import About from "../models/about.js";
  * @return new object of about
  */
 const createAbout = (req, res) => {
-  const about = new About(req.body);
+  const about = new About({
+    bio: req.body.bio,
+    personal_pic: req.imagePath,
+    expertise: req.body.expertise,
+  });
   about
     .save()
     .then((about) => {
@@ -82,6 +86,24 @@ const updateAbout = (req, res) => {
     });
 };
 
+const updateByIdWithImageAbout = (req, res) => {
+  let body = req.body;
+let data = {};
+let id = req.params.id;
+if ("bio" in body) data.name = body.name;
+if ("expertise" in body) data.expertise = body.expertise;
+data.personal_pic = req.imagePath;
+try {
+    About.updateOne({ _id: id }, { $set: data }, (err, response) => {
+        if (err) return next(err);
+        res.status(201).send({ success: true, response });
+    });
+} catch (err) {
+    res.status(err.status).send(err.message);
+}
+
+
+};
 //Delete
 /**
  * @param {*} req
@@ -101,4 +123,4 @@ const deleteAbout = (req, res) => {
       res.status(500).send(err);
     });
 };
-export default { createAbout, getAllAbout, getAbout, updateAbout, deleteAbout };
+export default { createAbout, getAllAbout, getAbout, updateAbout, deleteAbout, updateByIdWithImageAbout };
