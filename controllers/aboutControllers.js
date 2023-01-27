@@ -1,6 +1,6 @@
 import { response } from "express";
 import About from "../models/about.js";
-
+import fs from "fs";
 //add
 /**
  *
@@ -94,11 +94,19 @@ if ("bio" in body) data.name = body.name;
 if ("expertise" in body) data.expertise = body.expertise;
 data.personal_pic = req.imagePath;
 try {
-    About.updateOne({ _id: id }, { $set: data }, (err, response) => {
+  About.findOne({ _id: id }, (err, about) => {
+    if (err) return next(err);
+    fs.unlink(about.personal_pic, (err) => {
+      if (err) return next(err);
+      about.personal_pic = req.imagePath;
+      about.save((err, updatedAbout) => {
         if (err) return next(err);
-        res.status(201).send({ success: true, response });
+        res.status(201).send({ success: true, updatedAbout });
+      });
     });
-} catch (err) {
+  });
+}
+ catch (err) {
     res.status(err.status).send(err.message);
 }
 
