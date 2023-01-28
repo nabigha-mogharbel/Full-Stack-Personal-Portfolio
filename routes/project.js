@@ -1,16 +1,26 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
-import projectController from '../controllers/projectController.js'
-import imageController from '../controllers/imageController.js';
+import projectController from "../controllers/projectController.js";
+import imageController from "../midleware/imageController.js";
 import auth from "../midleware/token-auth.js";
 
-
-router.get("/projects",auth, projectController.getProjects )
-router.post('/projects/add', imageController, projectController.addProject)
-router.put("/projects/update/:id",auth,projectController.updateProjectById)
-router.put("/projects/update/withimage/:id",auth, imageController,projectController.updateProjectById)
-router.delete("/projects/delete/:id",auth, projectController.deleteProjectById)
-
-
-
-export default router
+router.get("/", auth, projectController.getProjects);
+router.post(
+  "/create",
+  auth,
+  imageController,
+  projectController.addProject
+);
+router.put("/update/:id", auth, projectController.updateProjectById);
+router.put(
+  "/update/withimg/:id",
+  auth,
+  imageController,
+  projectController.updateProjectById
+);
+router.delete(
+  "/delete/:id",
+  auth,
+  projectController.deleteProjectById
+);
+export default router;

@@ -1,4 +1,5 @@
 import Model from "../models/experience.js";
+import PortfolioModel from "../models/portfolio.js";
 
 // callback functions used in author routes
 //get all the Experiences
@@ -25,8 +26,17 @@ const addExperience = (req, res) => {
   const body = req.body;
   try {
     const newExperience = new Model(body);
-    newExperience.save();
-    res.send(newExperience);
+    newExperience.save((err, response) => {
+      if (err) return next(err);
+      PortfolioModel.updateOne(
+        { _id: `${process.env.PORTFOLIO_ID}` },
+        { $push: { experience: newExperience._id } },
+        (err, response) => {
+          if (err) return next(err);
+          res.status(201).send({ sucess: true, response });
+        }
+      );
+    });
   } catch (err) {
     return res.status(400).send(err.message);
   }
@@ -37,22 +47,13 @@ const addExperience = (req, res) => {
 const putExperience = async (req, res) => {
   let id = req.params.id;
   let data = req.body;
-
   try {
-    /*const updateSkill = await Model.findByIdAndUpdate(id, data, {
-      new: true,
-      runValidators: true,
+    Model.updateOne({ _id: id }, { $set: data }, (err, response) => {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).send({ success: true, response });
     });
-    if (updateSkill) {
-      res.status(200).send(updateSkill);
-    } else {
-      res.status(404).send(err.message);
-    }*/
-
-    Model.updateOne({_id:id},{$set:data}, (err,response) => {
-      if(err){return next(err)}
-      res.status(200).send({success:true, response})
-  })
   } catch (error) {
     res.status(400).send({ error: true, error });
   }
@@ -65,7 +66,16 @@ const deleteExperience = (req, res, next) => {
   try {
     Model.findByIdAndRemove({ _id: id }, (err, response) => {
       if (err) return next(err);
-      res.status(200).send({ success: true, response });
+      PortfolioModel.updateOne(
+        { _id: `${process.env.PORTFOLIO_ID}`},
+        { $pull: { experience: `${id}` } },
+        (err, response) => {
+          if (err) return next(err);
+          res
+            .status(200)
+            .send({ sucess: true, response, message: "deleted experience" });
+        }
+      );
     });
   } catch (error) {
     res.status(400).send({ error: true, error });

@@ -1,6 +1,6 @@
-import { response } from "express";
 import About from "../models/about.js";
 import fs from "fs";
+import portfolioModel from "../models/about.js"
 //add
 /**
  *
@@ -9,19 +9,27 @@ import fs from "fs";
  * @return new object of about
  */
 const createAbout = (req, res) => {
-  const about = new About({
+ try{ 
+  let newAbout = new About({
     bio: req.body.bio,
     personal_pic: req.imagePath,
     expertise: req.body.expertise,
   });
-  about
-    .save()
-    .then((about) => {
-      res.status(201).json(about);
-    })
-    .catch((err) => {
-      res.status(500).send(err.message);
-    });
+  newAbout.save((err, response) => {
+    console.log(newAbout._id)
+    if(err) return next(err)
+    portfolioModel.updateOne(
+      { _id: `${process.env.PORTFOLIO_ID}` },
+      { $push: { about: newAbout._id } },
+      (err, response) => {
+        console.log("what what")
+        if (err) return next(err);
+        res.status(201).send({ sucess: true, response });
+      }
+    );
+  })}catch(error){
+    res.status(400).send({error:true, error})
+  }
 };
 //READ
 /**
@@ -126,7 +134,16 @@ const deleteAboutWithImg = (req, res) => {
           if (err) {
             return next(err);
           }
-          res.status(200).send("Deleted Successfully");
+          portfolioModel.updateOne(
+            { _id: `${process.env.PORTFOLIO_ID}` },
+            { $pull: { about: `${id}` } },
+            (err, response) => {
+              if (err) return next(err);
+              res
+                .status(200)
+                .send({ sucess: true, response, message: "deleted things" });
+            }
+          );
         });
       } else {
         res.status(404).send("Error: Couldn't find");
