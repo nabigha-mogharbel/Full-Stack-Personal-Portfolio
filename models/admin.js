@@ -19,5 +19,5 @@ password: {
 });
 
 
-const Admin = model('admin', admin)
+const Admin = model('Admin', admin)
 export default Admin;

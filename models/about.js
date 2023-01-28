@@ -2,20 +2,21 @@ import mongoose from "mongoose";
 const {Schema, model} = mongoose;
 
 const about = new Schema({
-
     bio: {
         type: String,
-        required: [true,"the bio is required"]
+        required: true
     },
     personal_pic :{ 
         type: String,
-        required: [true,"the prsonal_picture is required"]
+        required: true
     },
 expertise : {
     type: String,
-    required: [true,"The expertise is required"]
+    required: true
 }
+},{
+    collection:"about"
 });
 
-const About = model('about', about);
+const About = model('About', about);
 export default About;

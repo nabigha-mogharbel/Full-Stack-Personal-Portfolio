@@ -15,7 +15,7 @@ const linkSchema = new Schema ({
         type:String,
         require:true,
     },
-}, {collection: "social_link"})
+}, {collection: "links"})
 
-const Link = model("link",linkSchema)
+const Link = model("Link",linkSchema)
 export default Link

@@ -21,7 +21,7 @@ const createAdmin = async (req, res) => {
     res.status(400).send("the name is already registered");
   } else {
     const salt = await bcrypt.genSaltSync(10);
-    const hash = await bcrypt.hashSync(password, salt);
+    const hash = await bcrypt.hashSync(password, 10);
     console.log(hash);
     const newAdmin = new admin({
       username: username,
@@ -71,7 +71,7 @@ const updateAdmin = async (req, res) => {
   const id = req.params.id;
   try {
     const salt = await bcrypt.genSaltSync(10);
-    const hashedPassword = await bcrypt.hash(body.password, salt);
+    const hashedPassword = await bcrypt.hash(body.password, 10);
     body.password = hashedPassword;
 
     const adminNew = await admin.findByIdAndUpdate(id, body, {
@@ -106,10 +106,11 @@ const login = (req, res) => {
       if (!exist) return res.status(400).send("Invalid password");
       const token = jwt.sign(
         { user_id: user.id, username },
-        process.env.JWT_SECRET
+        process.env.JWT_SECRET,
+        { expiresIn: '4h'}
       );
       //  user.token= token;
-      res.cookie("auth-token", token, { maxAge: 24 * 60 * 60, httpOnly: true });
+      res.cookie("auth-token", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
 
       // res.cookie('username', username, {maxAge: 900000, httpOnly: true})
       res.send(`Cookie sent`);

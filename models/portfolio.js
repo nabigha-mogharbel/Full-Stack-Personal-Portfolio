@@ -35,7 +35,9 @@ const skillSchema=new Schema({
 
 const portfolioSchema = new Schema(
   {
-    about: [aboutSchema],
+    about: [{
+      type:Schema.Types.ObjectId,
+      ref:"About"}],
     experience:[{    type:Schema.Types.ObjectId,
         ref:"Experience"}],
     skill:[{    type:Schema.Types.ObjectId,
@@ -43,10 +45,14 @@ const portfolioSchema = new Schema(
     project:[{    type:Schema.Types.ObjectId,
         ref:"Project"}],
     education:[{    type:Schema.Types.ObjectId,
-        ref:"Education"}]
+        ref:"Education"}],
+    link:[{
+      type:Schema.Types.ObjectId,
+      ref:"Link"
+    }]
   },
   {
-    collection: "portfolio",
+    collection: "Portfolio",
   }
 );
 portfolioSchema.pre(['find', 'findOne'], function () {
