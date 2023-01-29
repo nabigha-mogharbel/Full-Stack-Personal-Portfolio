@@ -1,0 +1,102 @@
+{
+	"variables": [],
+	"info": {
+		"name": "About",
+		"_postman_id": "9d05bac3-fc7d-5f1c-aec6-99f80cb24748",
+		"description": "# Introduction\nIt's an API has the bio, personal_pic and expertise.\n\n\n# Overview\nbio it's a owner's summary, he gets his value from the body request.\npersonal_pic it's a profile oicture of the owner, he gets his value from path of an upload image file\nexpertise it's the expertise of the owner(Front-End,Full Stack ....)\n\n# Authentication\nSupposed to an Create an Admin then log in to take an token\n# Error Codes\n404 : NotFound an About",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/dashboard/about/create",
+			"request": {
+				"url": "http://localhost:3000/dashboard/about/create",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/about/",
+			"request": {
+				"url": "http://localhost:3000/dashboard/about/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/about/:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/about/:id",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/about/update/:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/about/update/:id",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/about/update/img/:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/about/update/img/:id",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/about/delete/:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/about/delete/:id",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/about/delete/img/:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/about/delete/img/:id",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}

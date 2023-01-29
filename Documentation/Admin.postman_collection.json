@@ -1,0 +1,76 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Admin",
+		"_postman_id": "af93b014-fc5d-96b9-41dd-718df3af4bcb",
+		"description": "# Introduction\nThis API about the Admin, All About admin the information related to him\n# Overview\nThis API it's secure just if you have an auth/token you can access to it\n# Authentication\nyou should to login, by enter your username and password, then you have access you have  a token you can access else your access denied\n# Error Codes\nif you don't have a account or username who saved in data base it give you an message \"Username invalid\"\nif you write wrong password, the message exposer to you \"Your Password Wrong\"",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/dashboard/admin/login",
+			"request": {
+				"url": "http://localhost:3000/dashboard/admin/login",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/admin/create",
+			"request": {
+				"url": "http://localhost:3000/dashboard/admin/create",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/admin/",
+			"request": {
+				"url": "http://localhost:3000/dashboard/admin/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/admin/",
+			"request": {
+				"url": "http://localhost:3000/dashboard/admin/",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/admin/logout",
+			"request": {
+				"url": "http://localhost:3000/dashboard/admin/logout",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}

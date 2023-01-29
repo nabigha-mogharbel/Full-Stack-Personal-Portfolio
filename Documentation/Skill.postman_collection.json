@@ -1,0 +1,63 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Skill",
+		"_postman_id": "3b773198-062e-8ae8-6e5e-665f43e928bb",
+		"description": "# Introduction\nWith This API's Skill we can manage the data into MongoData Base (CRUD) \n# Overview\nthis API contain just one document :\n```\n- name\n- percentage\n```\n# Authentication\n\nProtected with username and password(hashPassword)\n\n# Error Codes\n404:NotFound\n400\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/dashboard/skill/",
+			"request": {
+				"url": "http://localhost:3000/dashboard/skill/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/skill/create",
+			"request": {
+				"url": "http://localhost:3000/dashboard/skill/create",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/skill/update/:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/skill/update/:id",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/delete/:id/",
+			"request": {
+				"url": "http://localhost:3000/dashboard/delete/:id/",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}

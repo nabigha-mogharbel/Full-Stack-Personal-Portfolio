@@ -1,0 +1,76 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Education",
+		"_postman_id": "2fbf7b93-77d4-394e-8d71-b0ef3982e138",
+		"description": "# Introduction\nWith This API's Education we can manage the data into MongoData Base (CRUD) \n# Overview\nthis API contain just one document :\n```\n- major\n- institute,\n- degree,\n- startDate,\n- endDate\n```\n# Authentication\n\nProtected with username and password(hashPassword)\n\n# Error Codes\n404:NotFound\n400\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/dashboard/education/",
+			"request": {
+				"url": "http://localhost:3000/dashboard/education/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/education/:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/education/:id",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/education/create",
+			"request": {
+				"url": "http://localhost:3000/dashboard/education/create",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/education/update",
+			"request": {
+				"url": "http://localhost:3000/dashboard/education/update",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/education/update:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/education/update:id",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}
