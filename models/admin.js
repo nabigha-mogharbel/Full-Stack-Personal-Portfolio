@@ -6,7 +6,8 @@ username: {
     type: 'string',
     required: true,
     maxLength:[30, "Name must be 30 at least"],
-    minLength:[2, "Name must be 2 at minimum"]
+    minLength:[2, "Name must be 2 at minimum"],
+    unique:[true, "Name must be unique"]
 },
 password: {
     type: 'string',
@@ -18,5 +19,5 @@ password: {
 });
 
 
-const Admin = model('admin', admin)
+const Admin = model('Admin', admin)
 export default Admin;

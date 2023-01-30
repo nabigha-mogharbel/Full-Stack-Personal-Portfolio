@@ -1,4 +1,4 @@
-
+import PortfolioModel from "../models/portfolio.js";
 import projectModel from "../models/project.js";
 
 /**
@@ -7,15 +7,14 @@ import projectModel from "../models/project.js";
  * @returns {Object}
  */
 export async function getProjects(req, res, next) {
-    try {
-      projectModel.find({}, (err, response) => {
-        if (err) return next(err);
-        console.log("whaaat")
-        res.status(200).send({ success: true, response });
-      });
-    } catch (error) {
-      res.status(400).send({ error: true, error });
-    }
+  try {
+    projectModel.find({}, (err, response) => {
+      if (err) return next(err);
+      res.status(200).send({ success: true, response });
+    });
+  } catch (error) {
+    res.status(400).send({ error: true, error });
+  }
 }
 /**
  * add all categories from categories collection
@@ -23,38 +22,73 @@ export async function getProjects(req, res, next) {
  * @param {String} req
  * @returns {Object}
  */
-export async function addProject(req, res, next){
-  try{
-      let projectData=new projectModel({
-      name:req.body.name,
-      category_id:req.body.category,
-      img:req.imagePath,
-      url:req.body.url
-    })
+export async function addProject(req, res, next) {
+  console.log("hiiii");
+  try {
+    let projectData = new projectModel({
+      name: req.body.name,
+      category_id: req.body.category,
+      img: req.imagePath,
+      url: req.body.url,
+    });
     projectData.save((err, response) => {
       if (err) return next(err);
-      res.status(200).send({ success: true, response });
-    })}catch(err){res.send({error:true, err})}
+      console.log("res", projectData);
+      PortfolioModel.updateOne(
+        { _id: `${process.env.PORTFOLIO_ID}` },
+        { $push: { project: projectData._id } },
+        (err, response) => {
+          if (err) return next(err);
+          res.status(201).send({ sucess: true, response });
+        }
+      );
+    });
+  } catch (err) {
+    console.log(err);
+    res.send({ error: true, err });
+  }
 }
 /**
  * update category using the id
  * @param {String} req
  * @returns {Object}
  */
-export async function updateProjectById(req,res,next){
-  let data=req.body;
-  let newData=data;
-  console.log("newdata", req)
-  if(data.id){
-    delete newData.id
+export async function updateProjectById(req, res, next) {
+  try {
+    projectModel.updateOne(
+      { _id: req.params.id },
+      { $set: req.body },
+      (err, response) => {
+        if (err) {
+          return next(err);
+        }
+        res.status(201).send({ success: true, response });
+      }
+    );
+  } catch (err) {
+    res.status(400).send({ error: true, err });
   }
-  try{
-    projectModel.updateOne({_id:req.body.id}, {$set: req.body}, (err,response) => {
-      if(err){return next(err)}
-      res.status(200).send({success:true, response})
-  })
-  }catch(err){
-    res.status(400).send({error:true, err})
+}
+export async function updateProjectByIdWithImage(req, res, next) {
+  let body = req.body;
+  let data = { name: "", category_id: "", img: "", url: "" };
+  body.name ? (data.name = body.name) : delete data.name;
+  body.category_id
+    ? (data.category_id = body.category_id)
+    : delete data.category_id;
+  body.url ? (data.name = body.url) : delete data.url;
+  data.img = req.imagePath;
+  try {
+    projectModel.updateOne(
+      { _id: req.params.id },
+      { $set: data },
+      (err, response) => {
+        if (err) return next(err);
+        res.status(201).send({ success: true, response });
+      }
+    );
+  } catch (error) {
+    res.status(400).send({ error: true, error });
   }
 }
 /**
@@ -62,15 +96,31 @@ export async function updateProjectById(req,res,next){
  * @param {String} req
  * @returns {Object}
  */
-export async function deleteProjectById(req,res,next){
-  try{
-    projectModel.findByIdAndDelete({_id:req.body.id}, (err,response) => {
-      if(err)return next(err)
-      res.status(200).send({success:true, response})
-    })
-  }catch(err){
-    res.status(400).send({error:true, err})
+export async function deleteProjectById(req, res, next) {
+  let id = req.params.id;
+  try {
+    projectModel.findByIdAndDelete({ _id: req.params.id }, (err, response) => {
+      if (err) return next(err);
+      PortfolioModel.updateOne(
+        { _id: `${process.env.PORTFOLIO_ID}` },
+        { $pull: { project: `${id}` } },
+        (err, response) => {
+          if (err) return next(err);
+          res
+            .status(200)
+            .send({ sucess: true, response, message: "deleted project" });
+        }
+      );
+    });
+  } catch (err) {
+    res.status(400).send({ error: true, err });
   }
 }
-const projectController = {getProjects, addProject, updateProjectById, deleteProjectById};
+const projectController = {
+  getProjects,
+  addProject,
+  updateProjectById,
+  updateProjectByIdWithImage,
+  deleteProjectById
+};
 export default projectController;

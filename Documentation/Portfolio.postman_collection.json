@@ -1,0 +1,37 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Portfolio",
+		"_postman_id": "23261d3a-a3d8-b611-d7ee-bcd4b6ed789a",
+		"description": "# Introduction\nWith This API's Portfolio we can manage the data into MongoData Base (CRUD) \n# Overview\nthis API contain just one document :\n```\n- about ref(about)\n- experience ref (experience),\n- skill ref (skill),\n- project ref (project),\n- education ref (education),\n- link ref (link)\n```\n# Authentication\n\nProtected with username and password(hashPassword)\n\n# Error Codes\n404:NotFound\n400\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/dashboard/portfolio/",
+			"request": {
+				"url": "http://localhost:3000/dashboard/portfolio/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/portfolio/create",
+			"request": {
+				"url": "http://localhost:3000/dashboard/portfolio/create",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}

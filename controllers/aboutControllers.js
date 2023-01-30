@@ -1,6 +1,6 @@
-import { response } from "express";
 import About from "../models/about.js";
-
+import fs from "fs";
+import portfolioModel from "../models/about.js"
 //add
 /**
  *
@@ -9,15 +9,27 @@ import About from "../models/about.js";
  * @return new object of about
  */
 const createAbout = (req, res) => {
-  const about = new About(req.body);
-  about
-    .save()
-    .then((about) => {
-      res.status(201).json(about);
-    })
-    .catch((err) => {
-      res.status(500).send(err.message);
-    });
+ try{ 
+  let newAbout = new About({
+    bio: req.body.bio,
+    personal_pic: req.imagePath,
+    expertise: req.body.expertise,
+  });
+  newAbout.save((err, response) => {
+    console.log(newAbout._id)
+    if(err) return next(err)
+    portfolioModel.updateOne(
+      { _id: `${process.env.PORTFOLIO_ID}` },
+      { $push: { about: newAbout._id } },
+      (err, response) => {
+        console.log("what what")
+        if (err) return next(err);
+        res.status(201).send({ sucess: true, response });
+      }
+    );
+  })}catch(error){
+    res.status(400).send({error:true, error})
+  }
 };
 //READ
 /**
@@ -82,11 +94,66 @@ const updateAbout = (req, res) => {
     });
 };
 
+const updateByIdWithImageAbout = (req, res) => {
+  let body = req.body;
+let data = {};
+let id = req.params.id;
+if ("bio" in body) data.name = body.name;
+if ("expertise" in body) data.expertise = body.expertise;
+data.personal_pic = req.imagePath;
+try {
+  About.findOne({ _id: id }, (err, about) => {
+    if (err) return next(err);
+    fs.unlink(about.personal_pic, (err) => {
+      if (err) return next(err);
+      about.personal_pic = req.imagePath;
+      about.save((err, updatedAbout) => {
+        if (err) return next(err);
+        res.status(201).send({ success: true, updatedAbout });
+      });
+    });
+  });
+}
+ catch (err) {
+    res.status(err.status).send(err.message);
+}
+
+
+};
 //Delete
 /**
  * @param {*} req
  * Delete a documnent from the database use the ID of the documnent
  */
+const deleteAboutWithImg = (req, res) => {
+  const id = req.params.id;
+  About.findByIdAndDelete(id)
+    .then((Deleted) => {
+      if (Deleted) {
+        fs.unlink(Deleted.personal_pic, (err) => {
+          if (err) {
+            return next(err);
+          }
+          portfolioModel.updateOne(
+            { _id: `${process.env.PORTFOLIO_ID}` },
+            { $pull: { about: `${id}` } },
+            (err, response) => {
+              if (err) return next(err);
+              res
+                .status(200)
+                .send({ sucess: true, response, message: "deleted things" });
+            }
+          );
+        });
+      } else {
+        res.status(404).send("Error: Couldn't find");
+      }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
+
 const deleteAbout = (req, res) => {
   const id = req.params.id;
   About.findByIdAndDelete(id)
@@ -101,4 +168,4 @@ const deleteAbout = (req, res) => {
       res.status(500).send(err);
     });
 };
-export default { createAbout, getAllAbout, getAbout, updateAbout, deleteAbout };
+export default { createAbout, getAllAbout, getAbout, updateAbout, deleteAbout, updateByIdWithImageAbout,deleteAboutWithImg };

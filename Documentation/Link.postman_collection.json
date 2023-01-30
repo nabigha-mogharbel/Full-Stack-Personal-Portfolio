@@ -1,0 +1,76 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Link",
+		"_postman_id": "ba32ef95-50b5-312e-f91b-6f5b534f0002",
+		"description": "# Introduction\nWith This API's Link`  we can manage the data into MongoData Base (CRUD) \n# Overview\nthis API contain just one document :\n```\n- name\n- link ,\n- icon,\n\n```\n# Authentication\n\nProtected with username and password(hashPassword)\n\n# Error Codes\n404:NotFound\n400\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/dashboard/experience/",
+			"request": {
+				"url": "http://localhost:3000/dashboard/experience/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/experience/:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/experience/:id",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/experience/create",
+			"request": {
+				"url": "http://localhost:3000/dashboard/experience/create",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/experience/update/:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/experience/update/:id",
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/experience/delete/:id",
+			"request": {
+				"url": "http://localhost:3000/dashboard/experience/delete/:id",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}
