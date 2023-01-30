@@ -111,8 +111,6 @@ const login = (req, res) => {
       );
       //  user.token= token;
       res.cookie("auth-token", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
-
-      // res.cookie('username', username, {maxAge: 900000, httpOnly: true})
       res.send(`Cookie sent`);
 
     })
