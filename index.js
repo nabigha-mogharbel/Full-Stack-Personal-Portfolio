@@ -13,6 +13,7 @@ import experienceRoutes from "./routes/experience.js";
 import portfolioRoutes from "./routes/portfolio.js";
 import createError from "http-errors"
 import cookieParser from "cookie-parser";
+import request from "request"
 dotenv.config
 const PORT = process.env.PORT
 await connectDB();
@@ -22,7 +23,11 @@ if (process.env.NODE_ENV === "development") {
 }
 app.use(cookieParser());
 app.use(express.json());
-
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use('/admin',adminRoutes);
 app.use('/dashboard/about',aboutRoutes);
 app.use("/dashboard/categories", categoriesRoutes);
@@ -39,6 +44,7 @@ app.get('/', (req, res) => {
 
 })
 app.listen(PORT, console.log(`Server is running in ${process.env.NODE_ENV} on port ${PORT}!!!`))
+
 
 // create and error object,catch 404 and forward to error handler
 app.use(function(req, res, next) {
