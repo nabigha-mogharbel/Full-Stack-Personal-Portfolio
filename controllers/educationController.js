@@ -23,8 +23,9 @@ const getEducation = (req, res, next) => {
 /**
  *
  */
-const addEducation = (req, res) => {
+const addEducation = (req, res,next) => {
   const body = req.body;
+  console.log(body);
   try {
     const newEducation = new Model(body);
     newEducation.save((err, response) => {
@@ -45,7 +46,7 @@ const addEducation = (req, res) => {
 
 // update an Education
 
-const putEducation = async (req, res) => {
+const putEducation = async (req, res, next) => {
   let id = req.params.id;
   let data = req.body;
 

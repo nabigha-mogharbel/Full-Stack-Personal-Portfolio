@@ -61,10 +61,9 @@ export async function deleteskill(req, res, next) {
           if (err) return next(err);
           res
             .status(200)
-            .send({ sucess: true, response, message: "deleted skill" });
+            .send({ sucess: true, response});
         }
       );
-      res.status(200).send({ success: true, response });
     });
   } catch {
     res.status(400).send({ error: true, error });

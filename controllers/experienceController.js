@@ -22,7 +22,7 @@ const getExperience = (req, res, next) => {
 
 //Add new Education
 
-const addExperience = (req, res) => {
+const addExperience = (req, res,next) => {
   const body = req.body;
   try {
     const newExperience = new Model(body);
@@ -38,13 +38,13 @@ const addExperience = (req, res) => {
       );
     });
   } catch (err) {
-    return res.status(400).send(err.message);
+    return res.status(400).send("Hello, world!");
   }
 };
 
 // update an Experience
 
-const putExperience = async (req, res) => {
+const putExperience = async (req, res,next) => {
   let id = req.params.id;
   let data = req.body;
   try {

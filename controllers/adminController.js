@@ -74,7 +74,12 @@ const updateAdmin = async (req, res) => {
     const hashedPassword = await bcrypt.hash(body.password, 10);
     body.password = hashedPassword;
 
-    const adminNew = await admin.findByIdAndUpdate(id, body, {
+    // const adminNew = await admin.findByIdAndUpdate(id, body, {
+    //   new: true,
+    //   runValidators: true,
+    // });
+
+    const adminNew = await admin.updateOne({ username: id }, { $set: body }, {
       new: true,
       runValidators: true,
     });
