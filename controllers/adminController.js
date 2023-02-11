@@ -74,7 +74,12 @@ const updateAdmin = async (req, res) => {
     const hashedPassword = await bcrypt.hash(body.password, 10);
     body.password = hashedPassword;
 
-    const adminNew = await admin.findByIdAndUpdate(id, body, {
+    // const adminNew = await admin.findByIdAndUpdate(id, body, {
+    //   new: true,
+    //   runValidators: true,
+    // });
+
+    const adminNew = await admin.updateOne({ username: id }, { $set: body }, {
       new: true,
       runValidators: true,
     });
@@ -93,31 +98,35 @@ const updateAdmin = async (req, res) => {
  * @param {String} req 
  * @param {*} res 
  */
-const login = (req, res) => {
+const login = async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  admin
-    .findOne({ username: username })
-    .then((user) => {
-      if (!user) {
-        return res.status(400).send("Invalid username");
-      }
-      const exist = bcrypt.compare(password, user.password);
-      if (!exist) return res.status(400).send("Invalid password");
-      const token = jwt.sign(
-        { user_id: user.id, username },
-        process.env.JWT_SECRET,
-        { expiresIn: '4h'}
-      );
-      //  user.token= token;
-      res.cookie("auth-token", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
-      res.send(`Cookie sent`);
 
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send("Internal server error");
-    });
+  try {
+    const user = await admin.findOne({ username: username });
+    if (!user) {
+      return res.status(400).send("Invalid username");
+    }
+
+    const exist = await bcrypt.compare(password, user.password);
+    if (!exist) {
+      return res.status(400).send("Invalid password");
+    }
+ 
+    const token = jwt.sign(
+      { user_id: user.id, username },
+      process.env.JWT_SECRET,
+      { expiresIn: '4h'}
+    );
+    // res.cookie("auth-token", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
+    res.setHeader('Set-Cookie', `auth-token=${token}; Max-Age=${24 * 60 * 60 * 1000}; HttpOnly`);
+
+    res.send(`Cookie sent`);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal server error");
+  }
 };
+
 
 export default { updateAdmin, createAdmin, getAdmin, login };

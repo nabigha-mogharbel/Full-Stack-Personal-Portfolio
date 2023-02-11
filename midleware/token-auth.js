@@ -14,11 +14,11 @@ try{
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     req.user = decoded;
     if (decoded) next()
-    else res.status(401).send("Access Denied your credentials")
+    else res.status(401).send({message: "Access Denied"})
     
 }
 catch(err){
-    return res.status(400).send("Access Denied"+err)
+    return res.status(400).send({message: err.message})
 }
 
 };

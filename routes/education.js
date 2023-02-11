@@ -3,9 +3,9 @@ const router = express.Router();
 import educationController from "../controllers/educationController.js";
 import auth from "../midleware/token-auth.js";
 
-router.get("/",auth, educationController.getAllEducation);
+router.get("/", educationController.getAllEducation);
 router.get("/:id",auth, educationController.getEducation);
-router.post("/create",auth, educationController.addEducation);
-router.put("/update/:id",auth, educationController.putEducation);
-router.delete("/delete/:id",auth, educationController.deleteEducation);
+router.post("/create", educationController.addEducation);
+router.put("/update/:id", educationController.putEducation);
+router.delete("/delete/:id",educationController.deleteEducation);
 export default router;

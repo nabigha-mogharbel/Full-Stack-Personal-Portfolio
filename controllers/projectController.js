@@ -28,10 +28,12 @@ export async function addProject(req, res, next) {
     let projectData = new projectModel({
       name: req.body.name,
       category_id: req.body.category,
-      img: req.imagePath,
+      img: req.imagePath.split("/")[1],
       url: req.body.url,
     });
+    console.log(projectData);
     projectData.save((err, response) => {
+      console.log(projectData);
       if (err) return next(err);
       console.log("res", projectData);
       PortfolioModel.updateOne(
@@ -77,7 +79,7 @@ export async function updateProjectByIdWithImage(req, res, next) {
     ? (data.category_id = body.category_id)
     : delete data.category_id;
   body.url ? (data.name = body.url) : delete data.url;
-  data.img = req.imagePath;
+  data.img = req.imagePath.split("/")[1];
   try {
     projectModel.updateOne(
       { _id: req.params.id },
@@ -121,6 +123,6 @@ const projectController = {
   addProject,
   updateProjectById,
   updateProjectByIdWithImage,
-  deleteProjectById
+  deleteProjectById,
 };
 export default projectController;

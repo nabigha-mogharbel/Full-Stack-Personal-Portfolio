@@ -12,11 +12,12 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 export default function (req, res, next) {
-  upload.single("images")(req, res, (err) => {
+  try{upload.single("images")(req, res, (err) => {
     if (err) {
       return next(err);
     }
+    console.log("multter",req)
     req.imagePath = req.file.path;
     next();
-  });
+  });}catch (err) {next(err);}
 }
