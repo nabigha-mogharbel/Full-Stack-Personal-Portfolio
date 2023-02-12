@@ -121,7 +121,7 @@ const login = async (req, res) => {
     // res.cookie("auth-token", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
     res.setHeader('Set-Cookie', `auth-token=${token}; Max-Age=${24 * 60 * 60 * 1000}; HttpOnly`);
 
-    res.send(`Cookie sent`);
+    res.status(200).send({data:token});
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error");
