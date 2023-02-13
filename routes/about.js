@@ -5,7 +5,7 @@ import auth from "../midleware/token-auth.js";
 import image from "../midleware/imageController.js";
 
 router.post("/create",  image, aboutControllers.createAbout);
-router.get("/", aboutControllers.getAllAbout);
+router.get("/", auth, aboutControllers.getAllAbout);
 router.get("/:id", auth, aboutControllers.getAbout);
 router.put("/update/:id", aboutControllers.updateAbout);
 router.put("/img/:id", image, aboutControllers.updateByIdWithImageAbout);

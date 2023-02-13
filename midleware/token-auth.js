@@ -3,9 +3,10 @@ import jwt from "jsonwebtoken";
 const config=process.env
 const  authen = (req, res, next) => {
 let token
-token = req.cookies['auth-token']
+//token = req.cookies['auth-token']
 // let token=req.cookie["auth-token"]
 // console.log(token)
+token=req.headers["auth-token"]
 
 if(!token){
 return res.status(401).send("Access Denied   different name")
@@ -18,6 +19,7 @@ try{
     
 }
 catch(err){
+    console.log(req)
     return res.status(400).send({message: err.message})
 }
 

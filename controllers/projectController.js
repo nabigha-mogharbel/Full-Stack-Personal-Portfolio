@@ -31,16 +31,16 @@ export async function addProject(req, res, next) {
       img: req.imagePath.split("/")[1],
       url: req.body.url,
     });
-    console.log(projectData);
+    console.log("recieved reuest");
     projectData.save((err, response) => {
-      console.log(projectData);
+      console.log("mongo saved project");
       if (err) return next(err);
-      console.log("res", projectData);
       PortfolioModel.updateOne(
         { _id: `${process.env.PORTFOLIO_ID}` },
         { $push: { project: projectData._id } },
         (err, response) => {
           if (err) return next(err);
+          console.log("updated ortfolio")
           res.status(201).send({ sucess: true, response });
         }
       );

@@ -3,7 +3,7 @@ import PortfolioModel from "../models/portfolio.js";
 
 // callback functions used in education routes
 //get all the educations
-const getAllEducation = (req, res, next) => {
+const getAllEducation = async (req, res, next) => {
   Model.find({}, (err, response) => {
     if (err) return next(err);
     res.status(200).send({ success: true, response });
@@ -23,7 +23,7 @@ const getEducation = (req, res, next) => {
 /**
  *
  */
-const addEducation = (req, res,next) => {
+export async function  addEducation(req, res,next) {
   const body = req.body;
   console.log(body);
   try {
@@ -65,7 +65,7 @@ const putEducation = async (req, res, next) => {
 
 // Delete an Education
 
-const deleteEducation = (req, res, next) => {
+const deleteEducation = async (req, res, next) => {
   let id = req.params.id;
   try {
     Model.findByIdAndRemove({ _id: id }, (err, response) => {

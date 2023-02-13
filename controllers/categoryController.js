@@ -11,7 +11,6 @@ export async function getCategories(req, res, next) {
     try {
       categoryModel.find({}, (err, response) => {
         if (err) return next(err);
-        console.log("whaaat")
         res.status(200).send({ success: true, response });
       });
     } catch (error) {
@@ -43,6 +42,7 @@ export async function getCategoryById(req,res,next){
  * @returns {Object}
  */
 export async function addCategory(req, res, next) {
+  console.log("adding category")
   let body = req.body;
   try {
     let newCategory = new categoryModel(body);

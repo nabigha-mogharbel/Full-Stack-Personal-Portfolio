@@ -14,7 +14,7 @@ import portfolioRoutes from "./routes/portfolio.js";
 import createError from "http-errors"
 import cookieParser from "cookie-parser";
 import request from "request"
-import CORS from "cors"
+import cors from "cors"
 import path from "path"
 dotenv.config
 const PORT = process.env.PORT
@@ -31,7 +31,12 @@ app.use(express.json());
 //   res.header("Access-Control-Allow-Headers", "x-access-token, Origin, X-Requested-With, Content-Type, Accept");
 //   next();
 // });
-app.use(CORS())
+const corsOptions ={
+  origin:'http://localhost:3000', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
+app.use(cors())
 app.use('/admin',adminRoutes);
 app.use('/dashboard/about',aboutRoutes);
 app.use("/dashboard/categories", categoriesRoutes);
