@@ -72,26 +72,44 @@ export async function updateProjectById(req, res, next) {
   }
 }
 export async function updateProjectByIdWithImage(req, res, next) {
-  let body = req.body;
-  let data = { name: "", category_id: "", img: "", url: "" };
-  body.name ? (data.name = body.name) : delete data.name;
-  body.category_id
-    ? (data.category_id = body.category_id)
-    : delete data.category_id;
-  body.url ? (data.name = body.url) : delete data.url;
-  data.img = req.imagePath.split("/")[1];
+  // let body = req.body;
+  // let data = { name: "", category_id: "", img: "", url: "" };
+  // body.name ? (data.name = body.name) : delete data.name;
+  // body.category_id
+  //   ? (data.category_id = body.category_id)
+  //   : delete data.category_id;
+  // body.url ? (data.name = body.url) : delete data.url;
+  // data.img = req.imagePath.split("/")[1];
+  // try {
+  //   projectModel.updateOne(
+  //     { _id: req.params.id },
+  //     { $set: data },
+  //     (err, response) => {
+  //       if (err) return next(err);
+  //       res.status(201).send({ success: true, response });
+  //     }
+  //   );
+  // } catch (error) {
+  //   res.status(400).send({ error: true, error });
+  // }
   try {
-    projectModel.updateOne(
-      { _id: req.params.id },
-      { $set: data },
-      (err, response) => {
-        if (err) return next(err);
-        res.status(201).send({ success: true, response });
+   id = req.params;
+    let body = req.body;
+    let data = {};
+    if(body.name){data.name = body.name}
+    if(body.category){data. category_id = body.category}
+    if(req.imagePath){data.img = req.imagePath.split("/")[1]}
+    let id = req.params.id;
+    projectModel.updateOne({ _id: id }, { $set: data }, (err, response) => {
+      if (err) {
+        return next(err);
       }
-    );
-  } catch (error) {
-    res.status(400).send({ error: true, error });
-  }
+      res.status(200).send({ success: true, response });
+    });
+    } catch (err) {
+    res.status(err.status).send(err.message);
+    }
+    
 }
 /**
  * delete document uusing id
