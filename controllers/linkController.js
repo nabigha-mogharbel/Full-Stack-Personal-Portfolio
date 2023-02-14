@@ -11,7 +11,7 @@ export async function getlink(req, res, next) {
     res.status(400).send({ error: true, error });
   }
 }
-function addlink(req, res, next) {
+async function addlink(req, res, next) {
   let newdata = req.body;
   let newLink = new Link(newdata);
   newLink.save((err, response) => {
@@ -26,7 +26,7 @@ function addlink(req, res, next) {
     );
   });
 }
-function updatelink(req, res, next) {
+async function updatelink(req, res, next) {
   let id = req.params.id;
   let newdata = req.body;
   Link.updateOne({ _id: id }, { $set: newdata }, (err, response) => {

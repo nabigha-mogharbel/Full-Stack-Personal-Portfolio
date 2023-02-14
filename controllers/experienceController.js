@@ -3,7 +3,7 @@ import PortfolioModel from "../models/portfolio.js";
 
 // callback functions used in author routes
 //get all the Experiences
-const getAllExperience = (req, res, next) => {
+const getAllExperience = async (req, res, next) => {
   Model.find({}, (err, response) => {
     if (err) return next(err);
     res.status(200).send({ success: true, response });
@@ -12,7 +12,7 @@ const getAllExperience = (req, res, next) => {
 
 //get an Experience by id
 
-const getExperience = (req, res, next) => {
+const getExperience = async (req, res, next) => {
   let { id } = req.params;
   Model.findOne({ _id: id }, (err, response) => {
     if (err) return next(err);
@@ -22,7 +22,7 @@ const getExperience = (req, res, next) => {
 
 //Add new Education
 
-const addExperience = (req, res,next) => {
+const addExperience = async (req, res,next) => {
   const body = req.body;
   try {
     const newExperience = new Model(body);
@@ -61,7 +61,7 @@ const putExperience = async (req, res,next) => {
 
 // Delete an Experience
 
-const deleteExperience = (req, res, next) => {
+const deleteExperience = async (req, res, next) => {
   let id = req.params.id;
   try {
     Model.findByIdAndRemove({ _id: id }, (err, response) => {

@@ -8,7 +8,7 @@ import portfolioModel from "../models/about.js";
  * @param res
  * @return new object of about
  */
-const createAbout = (req, res) => {
+const createAbout = async (req, res) => {
   try {
     let newAbout = new About({
       bio: req.body.bio,
@@ -37,8 +37,8 @@ const createAbout = (req, res) => {
  *
  * @return {Promise} Promise get all record of about collection
  */
-const getAllAbout = (req, res) => {
-  About.find({}).then((response) => {
+const getAllAbout = async (req, res) => {
+  await About.find({}).then((response) => {
     if (!response) {
       res.status(404).send({ error: " insufficient" });
     } else {
@@ -51,7 +51,7 @@ const getAllAbout = (req, res) => {
  *
  * @return {Promise} Promise get all record of about collection
  */
-const getAbout = (req, res) => {
+const getAbout = async (req, res) => {
   const id = req.params.id;
 
   console.log("Getting");
@@ -76,7 +76,7 @@ const getAbout = (req, res) => {
  * @param {*} res the response object
  * @returns {Promise} Update the specified object to new state
  */
-const updateAbout = (req, res) => {
+const updateAbout = async (req, res) => {
   const id = req.params.id;
   const newAabout = req.body;
   About.findByIdAndUpdate(id, newAabout, {
@@ -118,7 +118,7 @@ const updateByIdWithImageAbout = async (req, res, next) => {
  * @param {*} req
  * Delete a documnent from the database use the ID of the documnent
  */
-const deleteAboutWithImg = (req, res) => {
+const deleteAboutWithImg = async (req, res) => {
   const id = req.params.id;
   About.findByIdAndDelete(id)
     .then((Deleted) => {
